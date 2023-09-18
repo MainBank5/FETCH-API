@@ -21,3 +21,44 @@ fetch('https://api.github.com/users/MainBank5/repos').then((response) => respons
         console.log(m.name)
     })
 })
+
+
+
+fetch('/Fetch basics/directors.json').then((response) => {
+    console.log(response)
+    return response.json();
+}).then((data) => console.log(data)).catch((err) => console.log(err))
+
+//async and wait
+
+const getTodo = async () => {
+    const response = await fetch('/Fetch basics/todo.json');
+
+    if (response.status !== 200) {
+        throw new Error('Cannot fetch the data')
+    }
+    //console.log(response); - gives you the status
+    const data = await response.json();
+    //console.log(data) gets you the actual data in the api 
+    return data;
+}
+
+getTodo().then((data) => console.log(data)).catch((err) => console.log( 'rejected :', err.message))
+
+function createPost (title, body) {
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method:'POST', 
+        body: JSON.stringify({
+            title,
+            body
+        }), 
+        headers: {
+            'Content-Type' : 'application/json',
+            token: 'abc123'
+        }
+    }).then((res) => res.json())
+       .then ((data)=> console.log(data));
+}
+
+
+createPost({title:'My post', body:"This is my body"})

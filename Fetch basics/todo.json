@@ -1,0 +1,16 @@
+[
+    {"task" : "study react",
+    "priority": "1"
+    }, 
+
+    {
+    "task":"study javascript",
+    "priority":"2"
+    },
+
+    {
+        "task":"study python",
+        "priority":"3"
+    }
+    
+]
