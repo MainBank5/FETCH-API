@@ -45,12 +45,12 @@ const getTodo = async () => {
 
 getTodo().then((data) => console.log(data)).catch((err) => console.log( 'rejected :', err.message))
 
-function createPost (title, body) {
+function createPost ({title, body}) {
     fetch('https://jsonplaceholder.typicode.com/posts', {
         method:'POST', 
         body: JSON.stringify({
             title,
-            body
+            body,
         }), 
         headers: {
             'Content-Type' : 'application/json',
