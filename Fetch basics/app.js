@@ -92,6 +92,24 @@ const addToDoToDom = (todo) => {
     document.querySelector('#todo-list').appendChild(div);
 }
 
+const createToDO = (e) => {
+    e.preventDefault();
+    
+    const newToDo = {
+        title: e.target.firstElementChild.value,
+        completed: false
+    }
+
+    fetch(apiURL, {
+        method: "POST", 
+        body: JSON.stringify(newToDo),
+        headers:{
+            'content-Type' : 'application/json'
+        }
+    }).then(res => res.json()).then(data => addToDoToDom(data))
+
+}
+
 const init = () => {
     document.addEventListener('DOMContentLoaded', getTodos);
     document.querySelector('#todo-form').addEventListener('submit', createToDO);
