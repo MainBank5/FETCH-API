@@ -1,0 +1,48 @@
+.container {
+    margin: 150px;
+}
+
+h1{
+    font-weight: bolder;
+}
+
+button{
+    background-color: orange;
+    text-align: center;
+    color: white;
+    padding: 10px;
+    border-radius: 40px;
+    margin: 15px;
+    width: 99px;
+}
+
+button:hover{
+    background-color:white ;
+    color: orange;
+    cursor: pointer;
+}
+
+.todo{
+    display: flex;
+    gap: 20px;
+}
+
+.done{
+    border: 1px solid black;
+    padding: 8px;
+    width: 200px;
+}
+
+.hot{
+    background-color: grey;
+    color: white;
+}
+
+.trasha{
+    border: 1px solid black;
+    padding: 8px;
+}
+
+#title{
+    outline: 9px;
+}

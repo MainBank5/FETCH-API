@@ -62,3 +62,39 @@ function createPost ({title, body}) {
 
 
 createPost({title:'My post', body:"This is my body"})
+
+
+const apiURL = 'https://jsonplaceholder.typicode.com/todos'
+
+const getTodos = () => {
+    fetch(apiURL + '?_limit=5')
+    .then((response) => response.json())
+    .then((data) => {
+        //console.log(data)
+        data.forEach((todo) => {
+            console.log(todo.title);
+            addToDoToDom(todo);
+        })
+    })
+} 
+
+getTodos()
+
+const addToDoToDom = (todo) => {
+    const div = document.createElement('div')
+    div.innerText = todo.title;
+    div.setAttribute('data-id' , todo.id);
+    div.classList.add('done');
+            
+    if(todo.completed) {
+        div.classList.add('hot');
+    }
+    document.querySelector('#todo-list').appendChild(div);
+}
+
+const init = () => {
+    document.addEventListener('DOMContentLoaded', getTodos);
+    document.querySelector('#todo-form').addEventListener('submit', createToDO);
+}
+
+init();
