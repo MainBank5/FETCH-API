@@ -1,5 +1,5 @@
 .container {
-    margin: 150px;
+    margin: 10px;
 }
 
 h1{
@@ -31,6 +31,8 @@ button:hover{
     border: 1px solid black;
     padding: 8px;
     width: 200px;
+    border-radius: 10px;
+    width: auto;
 }
 
 .hot{

@@ -1,5 +1,5 @@
-//with fetch you get a promise when you call the API. If its resilved, you get a response 
-//the response inst the actual data you want but rather details about the JSON filesuch as the status, redirect, header
+//with fetch you get a promise when you call the API. If its resolved, you get a response 
+//the response isn't the actual data you want but rather details about the JSON filesuch as the status, redirect, header
 
 fetch('/Fetch basics/movies.json').then((response) => {
     console.log(response)
@@ -26,6 +26,9 @@ fetch('https://api.github.com/users/MainBank5/repos').then((response) => respons
 
 fetch('/Fetch basics/directors.json').then((response) => {
     console.log(response)
+    if(!response.ok) {
+        throw new Error('Something went wrong')
+    }
     return response.json();
 }).then((data) => console.log(data)).catch((err) => console.log(err))
 
@@ -37,13 +40,28 @@ const getTodo = async () => {
     if (response.status !== 200) {
         throw new Error('Cannot fetch the data')
     }
-    //console.log(response); - gives you the status
+    console.log(response); //gives you the status
     const data = await response.json();
     //console.log(data) gets you the actual data in the api 
     return data;
 }
 
-getTodo().then((data) => console.log(data)).catch((err) => console.log( 'rejected :', err.message))
+getTodo().then((data) => console.log(data)).catch((err) => console.log( 'rejected :', err.message));
+
+//pay attention to the difference when you return data above and console.log(data)
+const typicode = async () => {
+    const response = await fetch('https://jsonplaceholder.typicode.com/users?_limit=6');
+
+    const data = await response.json();
+
+    console.log(data)
+}
+
+typicode();
+
+
+
+
 
 function createPost ({title, body}) {
     fetch('https://jsonplaceholder.typicode.com/posts', {
@@ -67,7 +85,7 @@ createPost({title:'My post', body:"This is my body"})
 const apiURL = 'https://jsonplaceholder.typicode.com/todos'
 
 const getTodos = () => {
-    fetch(apiURL + '?_limit=5')
+    fetch(apiURL + '?_limit=4')
     .then((response) => response.json())
     .then((data) => {
         //console.log(data)
@@ -85,6 +103,7 @@ const addToDoToDom = (todo) => {
     div.innerText = todo.title;
     div.setAttribute('data-id' , todo.id);
     div.classList.add('done');
+    div.classList.add('play')
             
     if(todo.completed) {
         div.classList.add('hot');
@@ -110,9 +129,52 @@ const createToDO = (e) => {
 
 }
 
+const toggleCompleted = (e) => {
+
+    if(e.target.classList.contains('play')){
+        e.target.classList.toggle('hot');
+
+        updateToDO(e.target.dataset.id, e.target.classList.contains('hot'))
+    }
+    
+}
+
+const updateToDO = (id, completed) => {
+    fetch(`${apiURL}/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({completed}),
+        headers: {
+            'content-Type': 'application.json'
+        }
+    }).then((res) => res.json())
+      .then(data => console.log(data))
+}
+
+
+
+
 const init = () => {
     document.addEventListener('DOMContentLoaded', getTodos);
     document.querySelector('#todo-form').addEventListener('submit', createToDO);
+    document.querySelector('#todo-list').addEventListener('click', toggleCompleted)
 }
 
 init();
+
+//try ..... catch 
+
+const movieShop = async () => {
+        const response = await fetch("https://jsonplaceholder.typicode.com/users?_limit=5");
+
+        if (response.status === 200) {
+            throw new Error ("Something is terribly wrong!!");
+        }
+
+        const data = await response.json();
+        
+        console.log(data)
+   
+}
+
+movieShop();
+
